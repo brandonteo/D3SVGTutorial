@@ -1,0 +1,17 @@
+svg {
+  margin: 0 auto;
+  display: block;
+}
+
+.arc {
+  stroke: black;
+}
+
+.year-display {
+  text-align: center;
+}
+
+input {
+  display: block;
+  margin: 30px auto;
+}
