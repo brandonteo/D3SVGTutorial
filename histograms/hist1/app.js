@@ -1,6 +1,7 @@
 var svg_width = 600;
 var svg_height = 600;
-var padding = 3;
+var barPadding = 3;
+var svgPadding = 20;
 
 var minYear = d3.min(birthData, function(d) {return d.year;});
 var maxYear = d3.max(birthData, function(d) {return d.year;});
@@ -15,7 +16,7 @@ var xScale = d3.scaleLinear()
                .domain([0, d3.max(yearData, function(d) {
                    return d.births;
                })])
-               .rangeRound([20, svg_width - 20]); // Add padding so that text labels don't get cropped
+               .rangeRound([svgPadding, svg_width - svgPadding]); // Add padding so that text labels don't get cropped
 
 // Initialize histogram generator
 var bin_generator = d3.histogram()
@@ -52,7 +53,7 @@ histogram.append("rect")
                return yScale(d.length);
            })
            .attr("width", function(d) {
-               return xScale(d.x1) - xScale(d.x0) - padding;
+               return xScale(d.x1) - xScale(d.x0) - barPadding;
            })
            .attr("height", function(d) {
                return svg_height - yScale(d.length);
@@ -113,7 +114,7 @@ d3.select("input").on("input", function() {
                return yScale(d.length);
            })
            .attr("width", function(d) {
-               return Math.max((xScale(d.x1) - xScale(d.x0) - padding), 0);
+               return Math.max((xScale(d.x1) - xScale(d.x0) - barPadding), 0);
            })
            .attr("height", function(d) {
                return svg_height - yScale(d.length);
