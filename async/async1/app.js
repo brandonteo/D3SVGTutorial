@@ -13,6 +13,7 @@ d3.queue()
         if (error) throw error;
 
         var data = countries.geonames.map(function(country) {
+            // Add a `cities` field to the `country` obj and return it
             country.cities = cities.filter(function(city) {return city.countryCode === country.countryCode});
             return country;
         });
@@ -23,17 +24,18 @@ d3.queue()
                                     .enter()
                                     .append("div");
 
+        // Append a `h3` inside the div
         countryDivSelection.append("h3")
                            .text(function(d) {return d.countryName});
 
+        // Append a `ul` inside the div
         countryDivSelection.append("ul")
+                           // Populate the `ul` with an inner html element consisting of all the `li`s
                            .html(function(d) { // d here is a single country obj
                                 return d.cities.map(function(city) {
                                             var percentage = city.population / d.population * 100;
                                             return `<li>${city.cityName} - ${percentage.toFixed(2)}%</li>`
                                        }).join('');
                            });
-
-        
   })
 

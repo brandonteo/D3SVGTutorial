@@ -1,0 +1,29 @@
+svg, input {
+  display: block;
+  margin: 0 auto;
+}
+
+.tooltip {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  border: 4px solid rgb(82, 150, 206);
+  background-color: rgb(245, 229, 232);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.tooltip p {
+  margin: 2px;
+}
+
+/* Tooltip arrow is at the bottom hence the :after */
+.tooltip:after {
+  content: ' ';
+  position: absolute;
+  left: 50%;
+  border: 4px solid transparent;
+  border-top-color: rgb(82, 150, 206);
+  bottom: -24px;
+  margin-left: -4px;
+}
