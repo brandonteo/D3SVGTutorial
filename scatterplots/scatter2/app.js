@@ -44,6 +44,29 @@ var yScale = d3.scaleLinear()
                .range([svg_height - padding, padding]);
 
 
+// Add tooltip
+var tooltip = d3.select("body")
+                .append("div")
+                  .classed("tooltip", true);
+
+// Tooltip events
+function showTooltip(d) {
+    tooltip.style("opacity", 1)
+           .style("left", d3.event.x - (tooltip.node().offsetWidth / 2) + "px")
+           .style("top", d3.event.y + 25 + "px")
+           .html(`
+              <p>Region: ${d.region}</p>
+              <p>Births: ${d.adultLiteracyRate}</p>
+              <p>Population: ${d.subscribersPer100}</p>
+              <p>Area: ${d.urbanPopulationRate}</p>
+              <p>Life Expectancy: ${d.medianAge}</p>
+           `);
+}
+
+function hideTooltip() {
+    tooltip.style("opacity", 0);
+}
+
 // Add data points to SVG
 d3.select("svg")
       .attr("width", svg_width)
@@ -64,7 +87,11 @@ d3.select("svg")
       .attr("r", function(d) {
           return radiusScale(d.medianAge);
       })
-      .attr("stroke", "black");
+      .attr("stroke", "black")
+      .on("mousemove", showTooltip) // Mouse hovers
+      .on("touchstart", showTooltip) // Mobile device touches
+      .on("mouseout", hideTooltip)
+      .on("touchend", hideTooltip);
 
 
 // AXES, LABELS & TITLE
